@@ -1,0 +1,25 @@
+# Composer dependencies
+/vendor/
+
+# Backup folder
+PCOD_GITHUB_BACKUP/
+
+# ZIP/archive files
+*.zip
+
+# Temporary/test files
+test.js
+test11.png
+try.php
+
+# Research dataset - keep private
+data/PCOD_dataset.csv
+
+# Local database configuration
+db.php
+config/db.php
+
+# Original large ML model - keep local
+ml/pcod_model.phpml
+ml/pcod_model_BACKUP.phpml
+ml/pcod_model_compressed.phpml.gz
