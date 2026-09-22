@@ -95,12 +95,8 @@ if (isset($_GET['logout'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PCOD360</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet"> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;500;600;700;800&display=swap" rel="stylesheet"> -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -159,16 +155,6 @@ if (isset($_GET['logout'])) {
             scroll-behavior: smooth;
         }
 
-        /* body {
-            font-family: 'Outfit', sans-serif;
-            background:
-                radial-gradient(circle at top left, var(--subtle) 0%, transparent 40%),
-                radial-gradient(circle at bottom right, #f2eaff 0%, transparent 35%),
-                #fbfaff;
-            color: var(--text);
-            padding: 10px 0;
-            overflow-x: hidden;
-        } */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: radial-gradient(circle at top left, var(--subtle) 0%, transparent 40%),
@@ -179,61 +165,7 @@ if (isset($_GET['logout'])) {
             line-height: 1.6;
         }
 
-        /* --- NAVIGATION --- */
-        /* .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto 15px auto;
-            padding: 15px 20px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .logo img {
-            height: 40px;
-            width: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 34px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--muted);
-            font-weight: 500;
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0%;
-            height: 2px;
-            background: var(--primary);
-            transition: 0.3s;
-            border-radius: 20px;
-        }
-
-        .nav-links a:hover {
-            color: var(--deep-plum);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        } */
+        
         /* --- NAVIGATION --- */
         .nav {
             display: flex;
@@ -373,10 +305,6 @@ if (isset($_GET['logout'])) {
                 width: 100%;
             }
         }
-
-        /* =========================
-   NAV AUTH BUTTON
-========================= */
 
         /* ==========================================================================
            NAV AUTH BUTTON & USER PROFILE DROPDOWN
@@ -1034,51 +962,6 @@ if (isset($_GET['logout'])) {
             font-weight: 400;
         }
 
-        /* 1. Large Vertical Diagnostic Card Style 
-        .vertical-hero-card {
-            background: var(--card-grad-1);
-            border-color: rgba(167, 136, 220, 0.3);
-        }
-
-        .vertical-hero-card p {
-            margin-bottom: auto;
-            /* Pushes content down ensuring CTA anchors tightly 
-        }
-
-        .card-illustration-box {
-            width: 100%;
-            height: 220px;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.6);
-            box-shadow: inset 0 0 20px rgba(59, 22, 92, 0.02);
-        }
-
-        .card-illustration-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .premium-card:hover .card-illustration-box img {
-            transform: scale(1.04);
-        }*/
-
-        /* .card-action-block-btn {
-            width: 100%;
-            padding: 18px;
-            border-radius: 20px;
-            background: var(--btn-gradient);
-            color: var(--white);
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.05rem;
-            box-shadow: 0 10px 25px rgba(125, 69, 198, 0.2);
-            transition: var(--transition);
-            margin-top: 20px;
-        } */
         .card-action-block-btn {
             width: 100%;
             padding: 18px;
@@ -1134,19 +1017,6 @@ if (isset($_GET['logout'])) {
             transition: 0.5s ease;
         }
 
-        /* Soft overlay for readability */
-        /* .card-overlay {
-            position: absolute;
-            inset: 0;
-            background:
-                linear-gradient(to bottom,
-                    rgba(248, 243, 253, 0.95) 0%,
-                    rgba(248, 243, 253, 0.75) 30%,
-                    rgba(248, 243, 253, 0.35) 60%,
-                    rgba(248, 243, 253, 0.15) 100%);
-            z-index: 2;
-        } */
-
         /* Content stays above image */
         .card-content {
             position: relative;
@@ -1157,40 +1027,6 @@ if (isset($_GET['logout'])) {
             justify-content: space-between;
         }
 
-        /* Hover zoom */
-        /* .vertical-hero-card:hover .card-bg-image {
-            transform: scale(1.04);
-        } */
-
-        /* .premium-card:hover .card-action-block-btn {
-            background: var(--deep-plum);
-            box-shadow: 0 12px 28px rgba(59, 22, 92, 0.25);
-        } */
-
-        /* 2. Wide Landscape Block Card Configuration */
-        /* .landscape-block-card {
-            flex-direction: row;
-            align-items: center;
-            gap: 40px;
-        }
-
-        .landscape-content {
-            flex: 1.2;
-        }
-
-        .landscape-media {
-            flex: 0.8;
-            height: 180px;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(59, 22, 92, 0.05);
-        }
-
-        .landscape-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        } */
         .landscape-block-card {
             position: relative;
             overflow: hidden;
@@ -1256,30 +1092,6 @@ if (isset($_GET['logout'])) {
             border-color: var(--thistle);
         }
 
-        /* Floating Absolute UI Component Details */
-        /* .floating-action-arrow {
-            position: absolute;
-            bottom: 35px;
-            right: 35px;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: var(--light-purple);
-            color: var(--deep-plum);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            border: 1px solid rgba(223, 209, 239, 0.3);
-        }
-
-        .premium-card:hover .floating-action-arrow {
-            background: var(--deep-plum);
-            color: var(--white);
-            transform: rotate(45deg);
-        } */
         /* Ensure the outer anchor blocks establish a concrete absolute positioning root */
         /* STEP 1: Turn ALL cards into relative anchor parents so absolute positioning works perfectly */
         .premium-card,
@@ -1363,7 +1175,7 @@ if (isset($_GET['logout'])) {
         /* ==========================================================================
        How It Works Section Styles (Card-Free Open Architecture with SVG Zig-Zag)
        ========================================================================== */
-        /* @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css'); */
+
 
         .how-it-works-section {
             padding: 100px 4% 120px 4%;
@@ -2033,21 +1845,6 @@ if (isset($_GET['logout'])) {
             padding-left: 0 !important;
         }
 
-        /* .footer-brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--thistle), var(--mauve));
-            /* Synced to your exact global brand gradients 
-            border-radius: var(--radius-md);
-            /* Uses your global 16px border-radius layout metric
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 8px 24px rgba(125, 69, 198, 0.4);
-            transition: var(--transition);
-            /* Linked safely to your global transition timeline 
-        } */
-
         .footer-brand-icon i {
             color: var(--white);
             font-size: 1.3rem;
@@ -2289,28 +2086,6 @@ if (isset($_GET['logout'])) {
             }
         }
         @media (max-width: 768px) {
-            /* .asymmetric-layout,
-            .layout-col-right,
-            .sub-grid-row {
-                display: flex !important;
-                flex-direction: column !important;
-                gap: 24px !important;
-            }
-
-            .layout-col-left {
-                display: block !important;
-            }
-
-            .premium-card {
-                padding: 30px 24px 80px 24px !important;
-                min-height: auto !important;
-                height: auto !important;
-            }
-
-            .vertical-hero-card {
-                min-height: 480px !important;
-            }
- */
             .landscape-content {
                 max-width: 100% !important;
             }
@@ -2458,10 +2233,6 @@ if (isset($_GET['logout'])) {
                         <label>Password</label>
                         <span onclick="openForgot()" style="font-size: 0.85rem; color: var(--primary); cursor: pointer; font-weight: 500;">Forgot Password?</span>
                     </div>
-                    <!-- <div class="password-wrapper">
-                    <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
-                    <i class="fas fa-eye password-toggle" onclick="togglePassword('loginPassword', this)"></i>
-                </div> -->
                     <div class="password-wrapper">
                         <input type="password" id="loginPassword" name="password" placeholder="Enter your password">
                         <i class="fas fa-eye password-toggle"
@@ -2508,10 +2279,6 @@ if (isset($_GET['logout'])) {
 
                 <div class="input-group">
                     <label>Password</label>
-                    <!-- <div class="password-wrapper">
-                    <input type="password" id="signupPassword" name="password" placeholder="Create password" required>
-                    <i class="fas fa-eye password-toggle" onclick="togglePassword('signupPassword', this)"></i>
-                </div> -->
                     <div class="password-wrapper">
                         <input type="password" id="signupPassword" name="password" placeholder="Create password">
                         <i class="fas fa-eye password-toggle"
@@ -2708,24 +2475,6 @@ if (isset($_GET['logout'])) {
 
         <div class="asymmetric-layout">
 
-            <!-- <div class="layout-col-left">
-                <a href="final_test.html" class="premium-card vertical-hero-card" id="test-card">
-                    <div>
-                        <div class="card-icon-badge">
-                            <img src="https://cdn-icons-png.flaticon.com/512/3022/3022215.png" alt="Pulse icon">
-                        </div>
-                        <h3>Screening & Testing</h3>
-                        <p>Comprehensive health assessments designed specifically for PCOD management. Get personalized
-                            insights and track your progress metrics safely over time.</p>
-                    </div>
-                    <div>
-                        <div class="card-illustration-box">
-                            <img src="assets/images/test4.png" alt="Medical professional explaining data metrics" id="testimage">
-                        </div>
-                        <div class="card-action-block-btn">Start Assessment</div>
-                    </div>
-                </a>
-            </div> -->
             <div class="layout-col-left">
                 <a href="screening.php" class="premium-card vertical-hero-card" id="test-card">
 
@@ -2748,10 +2497,6 @@ if (isset($_GET['logout'])) {
                         </div>
 
                         <div>
-                            <!-- <div class="card-action-block-btn">
-                                Start Assessment
-                            </div> -->
-                            <!-- <div class="card-action-block-btn">Start Assessment</div> -->
                             <div class="floating-action-arrow">↗</div>
                         </div>
 

@@ -1,21 +1,10 @@
 <?php
-// screening.php
 ini_set('memory_limit', '2048M');
-// session_start(); // Keeps user login tracking session active
-
-// // Official standard Composer Autoloader
-// require_once __DIR__ . '/vendor/autoload.php';
-
-// // FIXED: Using your exact database connection file name layout
-// require_once __DIR__ . DIRECTORY_SEPARATOR . 'db.php';
-// Initialize session tracking securely if not already running
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Include your core database link configuration file
 require_once __DIR__ . DIRECTORY_SEPARATOR . '../config/db.php';
-// If the user session is missing, bounce them back to home with an alert flag configuration
 if (!isset($_SESSION['user'])) {
     $_SESSION['open_modal'] = "login";
     $_SESSION['login_notice'] = "Please sign in to access this feature.";
@@ -23,7 +12,6 @@ if (!isset($_SESSION['user'])) {
     exit();
 }
 
-// Map the authenticated logged-in user profile identifier
 $user_id = $_SESSION['user']['id'];
 $status_action_msg = "";
 $status_action_type = "error";
@@ -35,7 +23,6 @@ if (isset($_GET['logout'])) {
     exit();
 }
 
-// Official standard Composer Autoloader dependencies framework
 require_once __DIR__ . '/../vendor/autoload.php';
 // Safety mapping check for custom database link structures
 if (!isset($conn) && isset($mysqli)) {
@@ -252,15 +239,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         // 3. EXECUTE MACHINE LEARNING INFERENCE
         // =========================================================================
         $compressedModel = file_get_contents($modelPath);
-$serializedModel = gzuncompress($compressedModel);
+        $serializedModel = gzuncompress($compressedModel);
 
-$tempModelPath = __DIR__ . '/../ml/compressed_model_temp.phpml';
-file_put_contents($tempModelPath, $serializedModel);
+        $tempModelPath = __DIR__ . '/../ml/compressed_model_temp.phpml';
+        file_put_contents($tempModelPath, $serializedModel);
 
-$modelManager = new ModelManager();
-$classifier = $modelManager->restoreFromFile($tempModelPath);
+        $modelManager = new ModelManager();
+        $classifier = $modelManager->restoreFromFile($tempModelPath);
 
-unlink($tempModelPath);
+        unlink($tempModelPath);
         $prediction = $classifier->predict($matrixData);
 
         // --- NEW UPDATE: OFFICIAL REAL-TIME SCORE MATRIX WEIGHT CALCULATION ---
@@ -274,7 +261,7 @@ unlink($tempModelPath);
 
         // Question Response Weights Mapping
         if (isset($_POST['q1']) && $_POST['q1'] === 'No') $total_score += 3;
-        
+
         if (isset($_POST['q2'])) {
             if ($_POST['q2'] === 'Less often than 35 days') $total_score += 2;
             elseif ($_POST['q2'] === 'More than 2 months gap') $total_score += 3;
@@ -319,7 +306,7 @@ unlink($tempModelPath);
             elseif ($_POST['q18'] === 'More than 8 hours') $total_score += 1;
         }
         if (isset($_POST['q19']) && $_POST['q19'] === 'Yes') $total_score += 1;
-        
+
         if (isset($_POST['q20'])) {
             if ($_POST['q20'] === 'Yes') $total_score += 2;
             elseif ($_POST['q20'] === 'Not sure') $total_score += 1;
@@ -331,7 +318,7 @@ unlink($tempModelPath);
         if (isset($_POST['q24']) && $_POST['q24'] === 'Yes') $total_score += 1;
         if (isset($_POST['q25']) && $_POST['q25'] === 'Yes') $total_score += 3;
         if (isset($_POST['q26']) && $_POST['q26'] === 'Yes') $total_score += 3;
-        
+
         if (isset($_POST['q27'])) {
             if ($_POST['q27'] === 'Yes') $total_score += 1;
             elseif ($_POST['q27'] === 'Not sure') $total_score += 1;
@@ -374,11 +361,6 @@ unlink($tempModelPath);
         $db_q27 = $_POST['q27'] ?? null;
         $currentTimestamp = date('Y-m-d H:i:s');
 
-        // FIXED: Fully aligned 31 column targets matching 31 placeholders exactly
-// FIXED: Added the missing 32nd '?' placeholder to match the 32 columns exactly
-        // =========================================================================
-        // UPDATED: ADDED risk_percentage FIELD COLUMN AND VALUES PLACEHOLDER
-        // =========================================================================
         $sql = "INSERT INTO screening (
                     user_id, age, q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, 
                     q11, q12, q14, q22, q13, q21, q15, q16, q17, q18, q19, 
@@ -434,7 +416,7 @@ unlink($tempModelPath);
             $risk_percentage, // Stores the percentage value directly in the row entry
             $currentTimestamp
         );
-          if (!$stmt->execute()) {
+        if (!$stmt->execute()) {
             throw new Exception("Database record entry commit failure: " . $stmt->error);
         }
         $stmt->close();
@@ -526,19 +508,6 @@ unlink($tempModelPath);
 
         }
 
-        /* body {
-            /* font-family: 'Outfit', sans-serif; 
-                        font-family: 'Plus Jakarta Sans', sans-serif;
-
-            min-height: 100vh;
-            color: var(--text);
-            overflow-x: hidden;
-            padding: 10px 0;
-            background:
-                radial-gradient(circle at top left, var(--subtle) 0%, transparent 35%),
-                radial-gradient(circle at bottom right, #eadfff 0%, transparent 25%),
-                #faf9ff;
-        } */
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background:
@@ -551,6 +520,7 @@ unlink($tempModelPath);
             margin: 0;
             padding: 0;
         }
+
         /* --- NAVIGATION --- */
         .nav {
             display: flex;
@@ -1069,30 +1039,25 @@ unlink($tempModelPath);
                 /* Adjust dropdown position slightly on mobile */
             }
         }
+
         /* ==========================================
    LOADING SCREEN WRAPPER & CARD
    ========================================== */
         #loadingScreen {
-            /* 1. Core structural locking rules - stays fixed relative to browser viewport */
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
-            /* Using view-width to force rigid edge constraints */
             height: 100vh;
             z-index: 9999;
-            /* Boosted to ensure it sits cleanly above all elements */
 
-            /* 2. Your original premium radial gradient and glassmorphism styling */
             background:
                 radial-gradient(circle at top left, var(--subtle) 0%, transparent 35%),
                 radial-gradient(circle at bottom right, #eadfff 0%, transparent 25%),
                 rgba(250, 249, 255, 0.96);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            /* Core support safe fallback for Safari browsers */
 
-            /* 3. STRICT LAYOUT CENTERING - Keeps .loader-card locked dead center */
             display: none;
             /* Controlled via JS ('flex' when visible) */
             align-items: center;
@@ -1663,7 +1628,7 @@ unlink($tempModelPath);
                 width: 100%;
             }
         }
-</style>
+    </style>
 </head>
 
 <body>
@@ -1802,19 +1767,6 @@ unlink($tempModelPath);
                     </div>
                 </div>
 
-                <!-- <div class="question-block" data-cat="2" data-q="Q6">
-                    <h2>6.Have you noticed sudden or excessive weight gain?<h2>
-                    <div class="options-container">
-                        <div class="option-card" onclick="selectOption(this, 'Yes')">
-                            <img src="../assets/images/Yes2.png" alt="Yes">
-                            <span>Yes</span>
-                        </div>
-                        <div class="option-card" onclick="selectOption(this, 'No')">
-                            <img src="../assets/images/No5.png" alt="No">
-                            <span>No</span>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="question-block" data-cat="2" data-q="Q6">
                     <h2>Have you noticed sudden or excessive weight gain?</h2>
                     <div class="options-container">
@@ -1994,19 +1946,19 @@ unlink($tempModelPath);
                             <img src="../assets/images/Exercise3.png" class="option-img" alt="Exercise">
                         </div>
                         <div class="option-card" onclick="selectOption(this, 'Household work')" data-score="1">
-                        <span>Household work</span>    
-                        <img src="../assets/images/Household2.png" class="option-img" alt="Household">
-                        
+                            <span>Household work</span>
+                            <img src="../assets/images/Household2.png" class="option-img" alt="Household">
+
                         </div>
                         <div class="option-card" onclick="selectOption(this, 'Both exercise and household work')" data-score="0">
-                        <span>Both exercise and household work</span>    
-                        <img src="../assets/images/Both3.png" class="option-img" alt="Both">
-                            
+                            <span>Both exercise and household work</span>
+                            <img src="../assets/images/Both3.png" class="option-img" alt="Both">
+
                         </div>
                         <div class="option-card" onclick="selectOption(this, 'Low physical activity / mostly inactive')" data-score="2">
-                        <span>Low physical activity/mostly inactive</span>    
-                        <img src="../assets/images/Low activity2.png" class="option-img" alt="Low activity">
-                            
+                            <span>Low physical activity/mostly inactive</span>
+                            <img src="../assets/images/Low activity2.png" class="option-img" alt="Low activity">
+
                         </div>
                     </div>
                 </div>
@@ -2168,29 +2120,42 @@ unlink($tempModelPath);
                     <button class="next-btn" id="finalSubmitBtn" style="display:none; margin-top:25px;" onclick="triggerMLProcessing()">Submit Screening</button>
                 </div>
 
-                <!-- <div class="nav-footer" id="navFooter">
-                <button class="btn-nav" id="backBtn" onclick="prevQuestion()" style="display:none;">← PREVIOUS</button>
-                <a href="home.php" class="btn-nav" style="color: #ff6b6b;">EXIT ✕</a>
-            </div> -->
                 <div class="nav-footer" id="navFooter">
                     <div class="nav-left">
                         <button class="btn-nav" id="backBtn" onclick="prevQuestion()" style="display: none;">← PREVIOUS</button>
-                        <a href="home.php" class="btn-nav" id="exitBtnLeft" style="color: #ff6b6b;">EXIT ✕</a>
+                        <a href="home.php" class="btn-nav" id="exitBtnLeft" style="color: #ff6b6b; text-decoration:none;">EXIT ✕</a>
                     </div>
 
                     <div class="nav-right">
-                        <a href="home.php" class="btn-nav" id="exitBtnRight" style="color: #ff6b6b; display: none;">EXIT ✕</a>
+                        <a href="home.php" class="btn-nav" id="exitBtnRight" style="color: #ff6b6b; text-decoration:none; display: none;">EXIT ✕</a>
                     </div>
                 </div>
                 <div id="statusMessage"></div>
             </div>
         </div>
 
-        <!-- <div id="resultWrapper">
+        <div id="resultWrapper" style="display: none;">
             <div class="result-card">
-                <div class="icon-circle" id="resIconCircle"><i class="fas fa-shield-alt" id="resIcon"></i></div>
+                <div class="icon-circle" id="resIconCircle">
+                    <i class="fas fa-shield-alt" id="resIcon"></i>
+                </div>
+
                 <h1 id="resTitle">Assessment Done</h1>
                 <p class="subtitle" id="resDesc">Processing machine model algorithms response mapping targets details...</p>
+
+                <div class="gauge-wrapper" style="margin: 35px auto 25px auto; width: 180px; height: 180px; position: relative; display: flex; align-items: center; justify-content: center;">
+                    <svg width="180" height="180" viewBox="0 0 180 180" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+                        <circle cx="90" cy="90" r="75" stroke="#f3efff" stroke-width="14" fill="transparent" />
+                        <circle class="gauge-fill" cx="90" cy="90" r="75" stroke="var(--mauve, #7b2cbf)" stroke-width="14" fill="transparent"
+                            stroke-dasharray="471.2" stroke-dashoffset="471.2" stroke-linecap="round"
+                            style="transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;" />
+                    </svg>
+
+                    <div class="gauge-data" style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: 100%; top: 0; left: 0;">
+                        <span style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted, #6b5a82); font-weight: 700; margin-bottom: 2px;">Risk Level</span>
+                        <span id="riskPercentageLabel" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--deep-plum, #4A2B63); line-height: 1;">0%</span>
+                    </div>
+                </div>
                 <div class="recommendation-grid">
                     <div class="reco-item pink">
                         <i class="fas fa-apple-alt" style="font-size:24px; margin-bottom:15px;"></i>
@@ -2203,62 +2168,6 @@ unlink($tempModelPath);
                         <p>Stay physically active with regular walking, cycling, or other moderate exercises.</p>
                     </div>
                 </div>
-                <div class="disclaimer">
-                    <strong>Disclaimer:</strong> This assessment tool provides indications based on patterns learned by our machine learning model. It does not replace professional clinical evaluation or comprehensive laboratory medical diagnosis.
-                </div>
-                 not need line comme tline<button class="action-btn" onclick="window.location.href='track.php'">Go to Tracker Dashboard</button> 
-                <div class="result-actions" style="display: flex; gap: 15px; margin-top: 30px; justify-content: center;">
-                    <button id="retakeBtn" class="btn btn-secondary" onclick="resetAndRetakeQuiz()" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; cursor: pointer;">
-                        <i class="fas fa-undo"></i> Retake Test
-                    </button>
-                    <button id="trackBtn" class="btn btn-primary" onclick="goToTrackPage()" style="display: flex; align-items: center; gap: 8px; padding: 10px 20px; cursor: pointer;">
-                        <i class="fas fa-chart-line"></i> Go to Track Page
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div> -->
-<div id="resultWrapper" style="display: none;">
-            <div class="result-card">
-                <div class="icon-circle" id="resIconCircle">
-                    <i class="fas fa-shield-alt" id="resIcon"></i>
-                </div>
-                
-                <h1 id="resTitle">Assessment Done</h1>
-                <p class="subtitle" id="resDesc">Processing machine model algorithms response mapping targets details...</p>
-                
-                <!-- <div style="margin: 25px auto; max-width: 100%; text-align: center; padding: 0 10px;">
-                    <div style="background: #efe7fb; width: 100%; height: 16px; border-radius: 30px; overflow: hidden; margin-bottom: 12px; position: relative; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);">
-                        <div class="progress-fill-element" style="background: var(--btn-gradient, linear-gradient(135deg, #7b2cbf, #5a189a)); width: 0%; height: 100%; border-radius: 30px; transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 1px 2px rgba(0,0,0,0.15);"></div>
-                    </div>
-                    <div style="font-size: 1.05rem; color: var(--text, #333); font-weight: 600; margin-top: 8px;">
-                        Risk Indicator Value: <span id="riskPercentageLabel" style="color: var(--mauve, #7b2cbf); font-weight: 800; font-size: 1.4rem; margin-left: 4px;">0%</span>
-                    </div>
-                </div> -->
-<div class="gauge-wrapper" style="margin: 35px auto 25px auto; width: 180px; height: 180px; position: relative; display: flex; align-items: center; justify-content: center;">
-    <svg width="180" height="180" viewBox="0 0 180 180" style="transform: rotate(-90deg); width: 100%; height: 100%;">
-        <circle cx="90" cy="90" r="75" stroke="#f3efff" stroke-width="14" fill="transparent" />
-        <circle class="gauge-fill" cx="90" cy="90" r="75" stroke="var(--mauve, #7b2cbf)" stroke-width="14" fill="transparent" 
-                stroke-dasharray="471.2" stroke-dashoffset="471.2" stroke-linecap="round"
-                style="transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.4s ease;" />
-    </svg>
-    
-    <div class="gauge-data" style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; width: 100%; height: 100%; top: 0; left: 0;">
-        <span style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted, #6b5a82); font-weight: 700; margin-bottom: 2px;">Risk Level</span>
-        <span id="riskPercentageLabel" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 2.6rem; font-weight: 800; color: var(--deep-plum, #4A2B63); line-height: 1;">0%</span>
-    </div>
-</div>                <div class="recommendation-grid">
-                    <div class="reco-item pink">
-                        <i class="fas fa-apple-alt" style="font-size:24px; margin-bottom:15px;"></i>
-                        <h3>Balanced Nutrition</h3>
-                        <p>Choose nutritious meals with plenty of vegetables, fruits, whole grains, and lean proteins.</p>
-                    </div>
-                    <div class="reco-item purple">
-                        <i class="fas fa-running" style="font-size:24px; margin-bottom:15px;"></i>
-                        <h3>Active Lifestyle</h3>
-                        <p>Stay physically active with regular walking, cycling, or other moderate exercises.</p>
-                    </div>
-                </div>
 
                 <div class="disclaimer">
                     <strong>Disclaimer:</strong> This assessment tool provides indications based on patterns learned by our machine learning model. It does not replace professional clinical evaluation or comprehensive laboratory medical diagnosis.
@@ -2274,957 +2183,553 @@ unlink($tempModelPath);
                 </div>
             </div>
         </div>
-    <!-- <div id="loadingScreen">
-    <div class="loader-card">
-        <div class="circular-loader"></div>
-        <h2 style="font-size:1.3rem; margin-bottom:10px;">Evaluating Screening Metrics</h2>
-        <p style="color:var(--muted); font-size:0.92rem;">Our Machine Learning Model is analyzing your profile traits alignment...</p>
-        <ul class="loader-status-list">
-            <li class="status-item" id="status-0"><i class="fas fa-circle-notch fa-spin"></i> Parsing questionnaire answers matrix...</li>
-            <li class="status-item" id="status-1"><i class="fas fa-circle-notch"></i> Computing neural pattern vectors...</li>
-            <li class="status-item" id="status-2"><i class="fas fa-circle-notch"></i> Recording data parameters...</li>
-        </ul>
-    </div>
-</div> -->
-    <div id="loadingScreen">
-        <div class="loader-card">
-            <div class="circular-loader"></div>
+        <div id="loadingScreen">
+            <div class="loader-card">
+                <div class="circular-loader"></div>
 
-            <h2>Processing Your Screening</h2>
-            <p>Please wait a moment while we process your responses.</p>
+                <h2>Processing Your Screening</h2>
+                <p>Please wait a moment while we process your responses.</p>
 
-            <ul class="loader-status-list">
-                <li class="status-item active" id="status-0">
-                    <i class="fas fa-circle-notch fa-spin"></i> Checking your responses...
-                </li>
-                <li class="status-item" id="status-1">
-                    <i class="fas fa-circle-notch"></i> Analyzing your information...
-                </li>
-                <li class="status-item" id="status-2">
-                    <i class="fas fa-circle-notch"></i> Generating your results...
-                </li>
-            </ul>
+                <ul class="loader-status-list">
+                    <li class="status-item active" id="status-0">
+                        <i class="fas fa-circle-notch fa-spin"></i> Checking your responses...
+                    </li>
+                    <li class="status-item" id="status-1">
+                        <i class="fas fa-circle-notch"></i> Analyzing your information...
+                    </li>
+                    <li class="status-item" id="status-2">
+                        <i class="fas fa-circle-notch"></i> Generating your results...
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
 
-    <!-- <script>
-        let currentBlockIdx = 0;
-        const blocks = document.querySelectorAll('.question-block');
-        const steps = document.querySelectorAll('.cat-step');
-        const fill = document.getElementById('fill');
-        const btnBack = document.getElementById('btnBack');
 
-        let userAnswers = {
-            age: null,
-            q1: null,
-            q2: null,
-            q3: null,
-            q4: null,
-            q5: null,
-            q6: null,
-            q7: null,
-            q8: null,
-            q9: null,
-            q10: null,
-            q11: null,
-            q12: null,
-            q14: null,
-            q22: null,
-            q13: null,
-            q21: null,
-            q15: null,
-            q16: null,
-            q17: null,
-            q18: null,
-            q19: null,
-            q20: null,
-            q23: null,
-            q24: null,
-            q25: null,
-            q26: null,
-            q27: null
-        };
+        <script>
+            function toggleMenu() {
+                var navbar = document.getElementById("myTopnav");
+                var icon = document.getElementById("hamburgerIcon");
 
-        function toggleProfileDropdown() {
-            document.getElementById('profileDropdown').classList.toggle('show');
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-container')) {
-                document.getElementById('profileDropdown').classList.remove('show');
-            }
-        }
-
-        function initScreening() {
-            blocks.forEach((b, idx) => {
-                b.classList.toggle('active', idx === 0);
-            });
-            updateProgress();
-        }
-
-        function handleAgeInput(input) {
-            const val = parseInt(input.value);
-            const nextBtn = input.nextElementSibling.nextElementSibling;
-            const errDiv = input.nextElementSibling;
-
-            if (val >= 14 && val <= 60) {
-                userAnswers.age = val;
-                nextBtn.classList.add('ready');
-                errDiv.style.display = 'none';
-            } else {
-                userAnswers.age = null;
-                nextBtn.classList.remove('ready');
-                if (input.value.length > 0) errDiv.style.display = 'block';
-            }
-        }
-
-        function selectOption(element, val) {
-            const block = element.closest('.question-block');
-            const qKey = block.getAttribute('data-q').toLowerCase();
-
-            block.querySelectorAll('.option-card, .list-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-
-            userAnswers[qKey] = val;
-
-            if (currentBlockIdx < blocks.length - 1) {
-                setTimeout(nextQuestion, 350);
-            } else {
-                document.getElementById('finalSubmitBtn').style.display = 'block';
-                document.getElementById('finalSubmitBtn').classList.add('ready');
-            }
-        }
-
-        function nextQuestion() {
-            if (currentBlockIdx === 0 && !userAnswers.age) {
-                document.querySelector('.age-error').style.display = 'block';
-                return;
-            }
-            if (currentBlockIdx < blocks.length - 1) {
-                blocks[currentBlockIdx].classList.remove('active');
-                currentBlockIdx++;
-                blocks[currentBlockIdx].classList.add('active');
-                updateProgress();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentBlockIdx > 0) {
-                blocks[currentBlockIdx].classList.remove('active');
-                currentBlockIdx--;
-                blocks[currentBlockIdx].classList.add('active');
-                updateProgress();
-            }
-        }
-
-        // Ensure these element DOM references are declared at the top of your script
-        const backBtn = document.getElementById('backBtn');
-        const exitBtnLeft = document.getElementById('exitBtnLeft');
-        const exitBtnRight = document.getElementById('exitBtnRight');
-
-        function updateProgress() {
-            // Check if we are on the very first question block (Index 0)
-            if (currentBlockIdx === 0) {
-                if (backBtn) backBtn.style.display = 'none'; // Hide Previous
-                if (exitBtnLeft) exitBtnLeft.style.display = 'block'; // Show Exit on Left
-                if (exitBtnRight) exitBtnRight.style.display = 'none'; // Hide Exit on Right
-            } else {
-                if (backBtn) backBtn.style.display = 'block'; // Show Previous
-                if (exitBtnLeft) exitBtnLeft.style.display = 'none'; // Hide Exit on Left
-                if (exitBtnRight) exitBtnRight.style.display = 'block'; // Show Exit on Right
-            }
-
-            // --- Keep the rest of your existing progress tracking code below ---
-            const currentBlock = blocks[currentBlockIdx];
-            if (!currentBlock) return;
-
-            const catId = parseInt(currentBlock.getAttribute('data-cat'), 10);
-            steps.forEach((st, idx) => {
-                st.className = 'cat-step';
-                if (idx < catId) st.classList.add('completed');
-                if (idx === catId) st.classList.add('active');
-            });
-
-            const totalSteps = blocks.length - 1;
-            const pct = totalSteps > 0 ? (currentBlockIdx / totalSteps) * 100 : 0;
-            if (typeof fill !== 'undefined' && fill) fill.style.width = `${pct}%`;
-        }
-
-        function triggerMLProcessing() {
-            const loader = document.getElementById('loadingScreen');
-            loader.style.display = 'flex'; // Keep flex active
-
-            setTimeout(() => {
-                // Fix: Use icons along with the updated text string explicitly
-                document.getElementById('status-0').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Checking your responses...';
-
-                // Setup next item
-                const s1 = document.getElementById('status-1');
-                s1.classList.add('active');
-                s1.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Analyzing your information...';
-            }, 1200);
-
-            setTimeout(() => {
-                document.getElementById('status-1').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Analyzing your information...';
-
-                // Setup final item
-                const s2 = document.getElementById('status-2');
-                s2.classList.add('active');
-                s2.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results..';
-            }, 2400);
-
-            setTimeout(() => {
-                // This updates the status item correctly just before the server takes over control
-                document.getElementById('status-2').innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results... ';
-                sendDataToBackendML();
-            }, 3500);
-        }
-
-        // 1. EXTEND YOUR FETCH RESPONSE SUCCESS TO RECORD THE PREDICTION IN BROWSER STORAGE
-        function sendDataToBackendML() {
-            document.getElementById('loadingScreen').style.display = 'flex';
-
-            const formData = new FormData();
-            formData.append('action', 'submit_screening');
-            for (const key in userAnswers) {
-                formData.append(key, userAnswers[key]);
-            }
-
-            fetch('screening.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("HTTP error, status code: " + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-
-                    if (data.status === 'success') {
-                        // CHANGED: Saved under an account-isolated storage key identifier 
-                        const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-                        localStorage.setItem('saved_prediction_user_' + currentUserId, data.prediction);
-
-                        showMLResultCard(data.prediction);
-                    } else {
-                        throw new Error(data.message || "Unknown backend processing error.");
-                    }
-                })
-                .catch(err => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                    alert("Error running screening model analysis. Check console log details.");
-                    console.error(err);
-                });
-        }
-
-        // 2. THE RESULT CARD PRESENTATION LOGIC
-        function showMLResultCard(prediction) {
-            // Hide questionnaire frames and stepper elements immediately
-            if (document.getElementById('ui-stepper-container')) {
-                document.getElementById('ui-stepper-container').style.display = 'none';
-            }
-            if (document.getElementById('qWrapper')) {
-                document.getElementById('qWrapper').style.display = 'none';
-            }
-
-            const wrapper = document.getElementById('resultWrapper');
-            const iconCircle = document.getElementById('resIconCircle');
-            const icon = document.getElementById('resIcon');
-            const title = document.getElementById('resTitle');
-            const desc = document.getElementById('resDesc');
-
-            if (!wrapper) return;
-            wrapper.style.display = 'block'; // Ensure visibility wrapper properties are active
-            wrapper.classList.add('show');
-
-            const riskLevel = prediction.trim().toLowerCase();
-
-            if (riskLevel === "high") {
-                title.innerText = "High risk Detected";
-                title.style.color = "var(--risk-high, #d32f2f)";
-                icon.className = "fas fa-exclamation-circle";
-                iconCircle.style.background = "#ffebee";
-                iconCircle.style.color = "var(--risk-high, #d32f2f)";
-                desc.innerText = "Your screening results suggest that you may be at higher risk. We recommend consulting a healthcare professional for further evaluation and appropriate care.";
-                // desc.innerText = "Your screening results indicate an increased risk based on the information provided. We recommend consulting a healthcare professional for further evaluation and guidance.";
-
-            } else if (riskLevel === "moderate") {
-                title.innerText = "Moderate risk Detected";
-                title.style.color = "var(--risk-moderate, #f57c00)";
-                icon.className = "fas fa-exclamation-triangle";
-                iconCircle.style.background = "#fff3e0";
-                iconCircle.style.color = "var(--risk-moderate, #f57c00)";
-                desc.innerText = "Your screening results indicate moderate risk. Maintaining a balanced diet, staying physically active, and consulting a healthcare professional can help support your overall health.";
-
-            } else if (riskLevel === "low") {
-                title.innerText = "Low risk Detected";
-                title.style.color = "var(--risk-low, #fbc02d)";
-                icon.className = "fas fa-info-circle";
-                iconCircle.style.background = "#fffde7";
-                iconCircle.style.color = "var(--risk-low, #fbc02d)";
-                desc.innerText = "Your screening results indicate a low risk based on the information provided. Continue maintaining healthy lifestyle habits and routine health checkups.";
-
-            } else {
-                title.innerText = "No Significant Structural Risk";
-                title.style.color = "var(--risk-none, #388e3c)";
-                icon.className = "fas fa-check-circle";
-                iconCircle.style.background = "#e8f5e9";
-                iconCircle.style.color = "var(--risk-none, #388e3c)";
-                desc.innerText = "Your screening results indicate no significant risk based on the information provided. Continue maintaining a healthy lifestyle.";
-            }
-        }
-
-        // 3. NEW: ROUTE ACTION TO TARGET TRACKING APPLICATION PAGE
-        function goToTrackPage() {
-            // Replace 'track.php' or 'tracking.html' with the actual link to your track page
-            window.location.href = 'track.php';
-        }
-
-        // 4. NEW: RESET STATE ROUTINE FOR AN EXPLICIT QUIZ RETAKE
-        function resetAndRetakeQuiz() {
-            // Wipe browser memory state for the screening test completely
-            const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-            localStorage.removeItem('saved_pcod_prediction');
-
-            // Clear out previous quiz selection tracking variables if any exist
-            if (typeof userAnswers !== 'undefined') {
-                for (const key in userAnswers) {
-                    delete userAnswers[key];
-                }
-            }
-
-            // Hide the results wrapper card frame smoothly
-            document.getElementById('resultWrapper').style.display = 'none';
-            document.getElementById('resultWrapper').classList.remove('show');
-
-            // Restore primary question wizard layers and reset current step index
-            if (document.getElementById('ui-stepper-container')) {
-                document.getElementById('ui-stepper-container').style.display = 'block';
-            }
-            if (document.getElementById('qWrapper')) {
-                document.getElementById('qWrapper').style.display = 'block';
-            }
-
-            // Call your primary quiz start function to clear variables and build question 1 layout
-            if (typeof initScreening === 'function') {
-                initScreening();
-            } else {
-                window.location.reload(); // Quick clean fallback state fallback
-            }
-        }
-
-        // 5. FIXED ONLOAD MONITOR: Server verification query checks real-time account parameters
-        window.onload = function() {
-            const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-            const storageKey = 'saved_prediction_user_' + currentUserId;
-
-            <?php
-            // Inline Database Verification Guard - CHANGED TO USE $_SESSION['user']['id'] DIRECTLY
-            $check_query = "SELECT prediction_result FROM screening WHERE user_id = ? ORDER BY created_at DESC LIMIT 1";
-            $check_stmt = $conn->prepare($check_query);
-            $db_has_record = false;
-            $db_prediction = '';
-
-            if ($check_stmt) {
-                // FIXED: Using the clean explicit session ID variable directly here
-                $check_stmt->bind_param("i", $_SESSION['user']['id']);
-                $check_stmt->execute();
-                $check_result = $check_stmt->get_result();
-                if ($row = $check_result->fetch_assoc()) {
-                    $db_has_record = true;
-                    $db_prediction = $row['prediction_result'];
-                }
-                $check_stmt->close();
-            }
-            ?>
-
-            const userHasDatabaseRecord = <?php echo $db_has_record ? 'true' : 'false'; ?>;
-            const serverPredictionValue = "<?php echo trim($db_prediction); ?>";
-
-            if (userHasDatabaseRecord && serverPredictionValue !== '') {
-                // Account matches real database files -> load safely
-                localStorage.setItem(storageKey, serverPredictionValue);
-                showMLResultCard(serverPredictionValue);
-            } else {
-                // Brand new user profile -> clear stray cache data and load questions cleanly
-                localStorage.removeItem(storageKey);
-
-                if (document.getElementById('resultWrapper')) {
-                    document.getElementById('resultWrapper').style.display = 'none';
-                }
-                initScreening();
-            }
-        };
-    </script> -->
-
-<script>
-        function toggleMenu() {
-            var navbar = document.getElementById("myTopnav");
-            var icon = document.getElementById("hamburgerIcon");
-
-            // Toggle between layout classes using the responsive trigger flag
-            if (navbar.className === "nav") {
-                navbar.className += " responsive";
-                icon.className = "fas fa-times"; // Changes icon to an 'X' close button
-            } else {
-                navbar.className = "nav";
-                icon.className = "fas fa-bars"; // Resets icon back to standard bars
-            }
-        }
-
-        function toggleProfileDropdown() {
-            var dropdown = document.getElementById("profileDropdown");
-            if (dropdown) {
-                dropdown.classList.toggle("show");
-            }
-        }
-
-        // Close profile dropdown when clicking outside active viewport areas
-        window.onclick = function(event) {
-            if (!event.target.matches('.signin-btn') && !event.target.matches('.signin-btn *')) {
-                var dropdowns = document.getElementsByClassName("profile-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-
-        // ==========================================
-        // 2. MODAL OPERATIONS & CONTROLS
-        // ==========================================
-        const loginModal = document.getElementById("loginModal");
-        const signupModal = document.getElementById("signupModal");
-        const forgotModal = document.getElementById("forgotModal");
-        const profileDropdown = document.getElementById("profileDropdown");
-
-        function openLogin() {
-            closeAllModals();
-            if (loginModal) {
-                loginModal.classList.add("active");
-                document.body.style.overflow = "hidden";
-            }
-        }
-
-        function closeLogin() {
-            if (loginModal) loginModal.classList.remove("active");
-            document.body.style.overflow = "auto";
-            const notice = document.querySelector("#loginModal .status-msg");
-            if (notice) notice.remove();
-        }
-
-        function openSignup() {
-            closeAllModals();
-            if (signupModal) {
-                signupModal.classList.add("active");
-                document.body.style.overflow = "hidden";
-            }
-        }
-
-        function closeSignup() {
-            if (signupModal) signupModal.classList.remove("active");
-            document.body.style.overflow = "auto";
-        }
-
-        function openForgot() {
-            closeAllModals();
-            if (forgotModal) {
-                forgotModal.classList.add("active");
-                document.body.style.overflow = "hidden";
-            }
-        }
-
-        function closeForgot() {
-            if (forgotModal) forgotModal.classList.remove("active");
-            document.body.style.overflow = "auto";
-        }
-
-        function closeAllModals() {
-            [loginModal, signupModal, forgotModal].forEach(modal => {
-                if (modal) modal.classList.remove("active");
-            });
-        }
-
-        function toggleProfileDropdown() {
-            if (profileDropdown) {
-                profileDropdown.classList.toggle("show");
-            }
-        }
-
-        function togglePassword(inputId, icon) {
-            const input = document.getElementById(inputId);
-            if (input) {
-                if (input.type === "password") {
-                    input.type = "text";
-                    icon.classList.remove("fa-eye");
-                    icon.classList.add("fa-eye-slash");
+                // Toggle between layout classes using the responsive trigger flag
+                if (navbar.className === "nav") {
+                    navbar.className += " responsive";
+                    icon.className = "fas fa-times"; // Changes icon to an 'X' close button
                 } else {
-                    input.type = "password";
-                    icon.classList.remove("fa-eye-slash");
-                    icon.classList.add("fa-eye");
+                    navbar.className = "nav";
+                    icon.className = "fas fa-bars"; // Resets icon back to standard bars
                 }
             }
-        }
 
-        window.addEventListener("click", function(e) {
-            if (e.target === loginModal) closeLogin();
-            if (e.target === signupModal) closeSignup();
-            if (e.target === forgotModal) closeForgot();
-
-            if (profileDropdown && !profileDropdown.contains(e.target) && !e.target.closest('.signin-btn')) {
-                profileDropdown.classList.remove("show");
-            }
-        });
-
-        let currentBlockIdx = 0;
-        const blocks = document.querySelectorAll('.question-block');
-        const steps = document.querySelectorAll('.cat-step');
-        const fill = document.getElementById('fill');
-        const btnBack = document.getElementById('btnBack');
-
-        let userAnswers = {
-            age: null, q1: null, q2: null, q3: null, q4: null, q5: null,
-            q6: null, q7: null, q8: null, q9: null, q10: null, q11: null,
-            q12: null, q14: null, q22: null, q13: null, q21: null, q15: null,
-            q16: null, q17: null, q18: null, q19: null, q20: null, q23: null,
-            q24: null, q25: null, q26: null, q27: null
-        };
-
-        // function toggleProfileDropdown() {
-        //     document.getElementById('profileDropdown').classList.toggle('show');
-        // }
-
-        window.onclick = function(event) {
-            if (!event.target.closest('.profile-container')) {
-                const drop = document.getElementById('profileDropdown');
-                if (drop) drop.classList.remove('show');
-            }
-        }
-
-        function initScreening() {
-            blocks.forEach((b, idx) => {
-                b.classList.toggle('active', idx === 0);
-            });
-            updateProgress();
-        }
-
-        function handleAgeInput(input) {
-            const val = parseInt(input.value);
-            const nextBtn = input.nextElementSibling.nextElementSibling;
-            const errDiv = input.nextElementSibling;
-
-            if (val >= 14 && val <= 60) {
-                userAnswers.age = val;
-                nextBtn.classList.add('ready');
-                errDiv.style.display = 'none';
-            } else {
-                userAnswers.age = null;
-                nextBtn.classList.remove('ready');
-                if (input.value.length > 0) errDiv.style.display = 'block';
-            }
-        }
-
-        function selectOption(element, val) {
-            const block = element.closest('.question-block');
-            const qKey = block.getAttribute('data-q').toLowerCase();
-
-            block.querySelectorAll('.option-card, .list-option').forEach(el => el.classList.remove('selected'));
-            element.classList.add('selected');
-
-            userAnswers[qKey] = val;
-
-            if (currentBlockIdx < blocks.length - 1) {
-                setTimeout(nextQuestion, 350);
-            } else {
-                const fBtn = document.getElementById('finalSubmitBtn');
-                if (fBtn) {
-                    fBtn.style.display = 'block';
-                    fBtn.classList.add('ready');
+            function toggleProfileDropdown() {
+                var dropdown = document.getElementById("profileDropdown");
+                if (dropdown) {
+                    dropdown.classList.toggle("show");
                 }
             }
-        }
 
-        function nextQuestion() {
-            if (currentBlockIdx === 0 && !userAnswers.age) {
-                document.querySelector('.age-error').style.display = 'block';
-                return;
-            }
-            if (currentBlockIdx < blocks.length - 1) {
-                blocks[currentBlockIdx].classList.remove('active');
-                currentBlockIdx++;
-                blocks[currentBlockIdx].classList.add('active');
-                updateProgress();
-            }
-        }
-
-        function prevQuestion() {
-            if (currentBlockIdx > 0) {
-                blocks[currentBlockIdx].classList.remove('active');
-                currentBlockIdx--;
-                blocks[currentBlockIdx].classList.add('active');
-                updateProgress();
-            }
-        }
-
-        const backBtn = document.getElementById('backBtn');
-        const exitBtnLeft = document.getElementById('exitBtnLeft');
-        const exitBtnRight = document.getElementById('exitBtnRight');
-
-        function updateProgress() {
-            if (currentBlockIdx === 0) {
-                if (backBtn) backBtn.style.display = 'none';
-                if (exitBtnLeft) exitBtnLeft.style.display = 'block';
-                if (exitBtnRight) exitBtnRight.style.display = 'none';
-            } else {
-                if (backBtn) backBtn.style.display = 'block';
-                if (exitBtnLeft) exitBtnLeft.style.display = 'none';
-                if (exitBtnRight) exitBtnRight.style.display = 'block';
-            }
-
-            const currentBlock = blocks[currentBlockIdx];
-            if (!currentBlock) return;
-
-            const catId = parseInt(currentBlock.getAttribute('data-cat'), 10);
-            steps.forEach((st, idx) => {
-                st.className = 'cat-step';
-                if (idx < catId) st.classList.add('completed');
-                if (idx === catId) st.classList.add('active');
-            });
-
-            const totalSteps = blocks.length - 1;
-            const pct = totalSteps > 0 ? (currentBlockIdx / totalSteps) * 100 : 0;
-            if (typeof fill !== 'undefined' && fill) fill.style.width = `${pct}%`;
-        }
-
-        function triggerMLProcessing() {
-            const loader = document.getElementById('loadingScreen');
-            loader.style.display = 'flex';
-
-            setTimeout(() => {
-                document.getElementById('status-0').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Checking your responses...';
-                const s1 = document.getElementById('status-1');
-                if(s1) {
-                    s1.classList.add('active');
-                    s1.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Analyzing your information...';
-                }
-            }, 1200);
-
-            setTimeout(() => {
-                document.getElementById('status-1').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Analyzing your information...';
-                const s2 = document.getElementById('status-2');
-                if(s2) {
-                    s2.classList.add('active');
-                    s2.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results...';
-                }
-            }, 2400);
-
-            setTimeout(() => {
-                document.getElementById('status-2').innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results... ';
-                sendDataToBackendML();
-            }, 3500);
-        }
-
-        function sendDataToBackendML() {
-            document.getElementById('loadingScreen').style.display = 'flex';
-
-            const formData = new FormData();
-            formData.append('action', 'submit_screening');
-            for (const key in userAnswers) {
-                formData.append(key, userAnswers[key]);
-            }
-
-            fetch('screening.php', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("HTTP error, status code: " + response.status);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-
-                    if (data.status === 'success') {
-                        const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-                        localStorage.setItem('saved_prediction_user_' + currentUserId, data.prediction);
-                        localStorage.setItem('saved_percentage_user_' + currentUserId, data.percentage);
-
-                        showMLResultCard(data.prediction, data.percentage);
-                    } else {
-                        throw new Error(data.message || "Unknown backend processing error.");
-                    }
-                })
-                .catch(err => {
-                    document.getElementById('loadingScreen').style.display = 'none';
-                    alert("Error running screening model analysis. Check console log details.");
-                    console.error(err);
-                });
-        }
-
-        // function showMLResultCard(prediction, percentage) {
-        //     if (document.getElementById('ui-stepper-container')) {
-        //         document.getElementById('ui-stepper-container').style.display = 'none';
-        //     }
-        //     if (document.getElementById('qWrapper')) {
-        //         document.getElementById('qWrapper').style.display = 'none';
-        //     }
-
-        //     const wrapper = document.getElementById('resultWrapper');
-        //     const iconCircle = document.getElementById('resIconCircle');
-        //     const icon = document.getElementById('resIcon');
-        //     const title = document.getElementById('resTitle');
-        //     const desc = document.getElementById('resDesc');
-            
-
-        //     if (!wrapper) return;
-        //     wrapper.style.display = 'block'; 
-        //     wrapper.classList.add('show');
-
-        //     const riskLevel = prediction.trim().toLowerCase();
-
-        //     if (riskLevel === "high") {
-        //         title.innerText = "High Risk Detected";
-        //         title.style.color = "var(--risk-high, #d32f2f)";
-        //         icon.className = "fas fa-exclamation-circle";
-        //         if(iconCircle) {
-        //             iconCircle.style.background = "#ffebee";
-        //             iconCircle.style.color = "var(--risk-high, #d32f2f)";
-        //         }
-        //         desc.innerText = "Your screening results suggest that you may be at higher risk. We recommend consulting a healthcare professional for further evaluation.";
-        //     } else if (riskLevel === "moderate") {
-        //         title.innerText = "Moderate Risk Detected";
-        //         title.style.color = "var(--risk-moderate, #f57c00)";
-        //         icon.className = "fas fa-exclamation-triangle";
-        //         if(iconCircle) {
-        //             iconCircle.style.background = "#fff3e0";
-        //             iconCircle.style.color = "var(--risk-moderate, #f57c00)";
-        //         }
-        //         desc.innerText = "Your screening results indicate moderate risk. Maintaining healthy habits and consulting a healthcare professional can help.";
-        //     } else if (riskLevel === "low") {
-        //         title.innerText = "Low Risk Detected";
-        //         title.style.color = "var(--risk-low, #fbc02d)";
-        //         icon.className = "fas fa-info-circle";
-        //         if(iconCircle) {
-        //             iconCircle.style.background = "#fffde7";
-        //             iconCircle.style.color = "var(--risk-low, #fbc02d)";
-        //         }
-        //         desc.innerText = "Your screening results indicate a low risk based on the information provided. Continue maintaining healthy habits.";
-        //     } else {
-        //         title.innerText = "No Significant Risk";
-        //         title.style.color = "var(--risk-none, #388e3c)";
-        //         icon.className = "fas fa-check-circle";
-        //         if(iconCircle) {
-        //             iconCircle.style.background = "#e8f5e9";
-        //             iconCircle.style.color = "var(--risk-none, #388e3c)";
-        //         }
-        //         desc.innerText = "Your screening results indicate no significant risk. Continue maintaining a healthy lifestyle.";
-        //     }
-
-        //     const progressFill = document.querySelector('.progress-fill-element');
-        //     const percentageLabel = document.getElementById('riskPercentageLabel');
-
-        //     if (progressFill) progressFill.style.width = percentage + '%';
-        //     if (percentageLabel) percentageLabel.innerText = percentage + '%';
-        // }
-
-        function showMLResultCard(prediction, percentage) {
-            // Hide the question quiz blocks and stepper indicators cleanly
-            if (document.getElementById('ui-stepper-container')) {
-                document.getElementById('ui-stepper-container').style.display = 'none';
-            }
-            if (document.getElementById('qWrapper')) {
-                document.getElementById('qWrapper').style.display = 'none';
-            }
-
-            const wrapper = document.getElementById('resultWrapper');
-            const iconCircle = document.getElementById('resIconCircle');
-            const icon = document.getElementById('resIcon');
-            const title = document.getElementById('resTitle');
-            const desc = document.getElementById('resDesc');
-            
-            // Core DOM hooks for the new SVG Circular Progress Ring graphic elements
-            const gaugeFill = document.querySelector('.gauge-fill');
-            const percentageLabel = document.getElementById('riskPercentageLabel');
-
-            if (!wrapper) return;
-            wrapper.style.display = 'block'; 
-            wrapper.classList.add('show');
-
-            const riskLevel = prediction.trim().toLowerCase();
-            let gaugeColor = "var(--mauve, #7b2cbf)"; // Fallback theme color configuration
-
-            // Determine status, icons, context text descriptions, and colors dynamically
-            if (riskLevel === "high") {
-                title.innerText = "High Risk Detected";
-                title.style.color = "var(--risk-high, #d32f2f)";
-                icon.className = "fas fa-exclamation-circle";
-                if (iconCircle) {
-                    iconCircle.style.background = "#ffebee";
-                    iconCircle.style.color = "var(--risk-high, #d32f2f)";
-                }
-                desc.innerText = "Your screening results suggest that you may be at higher risk. We recommend consulting a healthcare professional for further evaluation.";
-                gaugeColor = "var(--risk-high, #d32f2f)"; // 🔴 Crimson Alert Red
-            } else if (riskLevel === "moderate") {
-                title.innerText = "Moderate Risk Detected";
-                title.style.color = "var(--risk-moderate, #f57c00)";
-                icon.className = "fas fa-exclamation-triangle";
-                if (iconCircle) {
-                    iconCircle.style.background = "#fff3e0";
-                    iconCircle.style.color = "var(--risk-moderate, #f57c00)";
-                }
-                desc.innerText = "Your screening results indicate moderate risk. Maintaining healthy habits and consulting a healthcare professional can help.";
-                gaugeColor = "var(--risk-moderate, #f57c00)"; // 🟡 Warnings Orange
-            } else if (riskLevel === "low") {
-                title.innerText = "Low Risk Detected";
-                title.style.color = "var(--risk-low, #fbc02d)";
-                icon.className = "fas fa-info-circle";
-                if (iconCircle) {
-                    iconCircle.style.background = "#fffde7";
-                    iconCircle.style.color = "var(--risk-low, #fbc02d)";
-                }
-                desc.innerText = "Your screening results indicate a low risk based on the information provided. Continue maintaining healthy habits.";
-                gaugeColor = "var(--risk-low, #fbc02d)"; // 🟡 Amber/Yellow
-            } else {
-                title.innerText = "No Significant Risk";
-                title.style.color = "var(--risk-none, #388e3c)";
-                icon.className = "fas fa-check-circle";
-                if (iconCircle) {
-                    iconCircle.style.background = "#e8f5e9";
-                    iconCircle.style.color = "var(--risk-none, #388e3c)";
-                }
-                desc.innerText = "Your screening results indicate no significant risk. Continue maintaining a healthy lifestyle.";
-                gaugeColor = "var(--risk-none, #388e3c)"; // 🟢 Healthy Green
-            }
-
-            // =========================================================================
-            // ANIMATION SYSTEM: SVG DASH PATH OFFSET + NUMERIC TICK INCREMENTER
-            // =========================================================================
-            const percentageValue = parseInt(percentage) || 0;
-
-            // 1. Update the color of the SVG ring stroke path and animate the dash line fill
-            if (gaugeFill) {
-                gaugeFill.style.stroke = gaugeColor;
-                
-                // Circumference of our SVG circle path formula is: 2 * PI * r (2 * 3.14159 * 75 = ~471.2)
-                const circumference = 471.2;
-                const offset = circumference - (percentageValue / 100) * circumference;
-                
-                // Triggers structural smooth transition delay
-                setTimeout(() => {
-                    gaugeFill.style.strokeDashoffset = offset;
-                }, 150);
-            }
-
-            // 2. Incremental progressive counter animation looping up from 0% to target value
-            if (percentageLabel) {
-                let startCount = 0;
-                const totalDuration = 1200; // Animation lifecycle completion run speed window in ms (1.2 seconds)
-                
-                // Determine layout pacing separation slices based on calculated value metrics
-                const stepTime = percentageValue > 0 ? Math.floor(totalDuration / percentageValue) : 25;
-                
-                // Clear any lingering asynchronous counter loops to prevent race performance bugs
-                if (window.gaugeCounterInterval) {
-                    clearInterval(window.gaugeCounterInterval);
-                }
-                
-                if (percentageValue === 0) {
-                    percentageLabel.innerText = "0%";
-                } else {
-                    window.gaugeCounterInterval = setInterval(() => {
-                        startCount++;
-                        percentageLabel.innerText = startCount + "%";
-                        
-                        if (startCount >= percentageValue) {
-                            clearInterval(window.gaugeCounterInterval);
+            // Close profile dropdown when clicking outside active viewport areas
+            window.onclick = function(event) {
+                if (!event.target.matches('.signin-btn') && !event.target.matches('.signin-btn *')) {
+                    var dropdowns = document.getElementsByClassName("profile-dropdown");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
                         }
-                    }, Math.max(stepTime, 10)); // Caps interval processing execution threshold safely
+                    }
                 }
             }
-        }
 
-        function goToTrackPage() {
-            window.location.href = 'track.php';
-        }
+            // ==========================================
+            // 2. MODAL OPERATIONS & CONTROLS
+            // ==========================================
+            const loginModal = document.getElementById("loginModal");
+            const signupModal = document.getElementById("signupModal");
+            const forgotModal = document.getElementById("forgotModal");
+            const profileDropdown = document.getElementById("profileDropdown");
 
-        function resetAndRetakeQuiz() {
-            const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-            localStorage.removeItem('saved_prediction_user_' + currentUserId);
-            localStorage.removeItem('saved_percentage_user_' + currentUserId);
-
-            for (const key in userAnswers) {
-                userAnswers[key] = null;
-            }
-
-            document.getElementById('resultWrapper').style.display = 'none';
-            document.getElementById('resultWrapper').classList.remove('show');
-
-            if (document.getElementById('ui-stepper-container')) {
-                document.getElementById('ui-stepper-container').style.display = 'block';
-            }
-            if (document.getElementById('qWrapper')) {
-                document.getElementById('qWrapper').style.display = 'block';
-            }
-
-            currentBlockIdx = 0;
-            initScreening();
-        }
-
-        // Clean database check alignment block
-window.onload = function() {
-            const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
-            const storageKeyPred = 'saved_prediction_user_' + currentUserId;
-            const storageKeyPct = 'saved_percentage_user_' + currentUserId;
-
-            <?php
-            // UPDATED: Now selecting 'risk_percentage' directly from your database
-            $check_query = "SELECT prediction_result, risk_percentage FROM screening WHERE user_id = ? ORDER BY created_at DESC LIMIT 1";
-            $check_stmt = $conn->prepare($check_query);
-            $db_has_record = false;
-            $db_prediction = '';
-            $db_percentage = 0;
-
-            if ($check_stmt) {
-                // FIXED: Using the clean explicit session ID variable directly here
-                $check_stmt->bind_param("i", $_SESSION['user']['id']);
-                $check_stmt->execute();
-                $check_result = $check_stmt->get_result();
-                if ($row = $check_result->fetch_assoc()) {
-                    $db_has_record = true;
-                    $db_prediction = $row['prediction_result'];
-                    // UPDATED: Reads the exact stored percentage directly from your database row column
-                    $db_percentage = isset($row['risk_percentage']) ? intval($row['risk_percentage']) : 0;
+            function openLogin() {
+                closeAllModals();
+                if (loginModal) {
+                    loginModal.classList.add("active");
+                    document.body.style.overflow = "hidden";
                 }
-                $check_stmt->close();
             }
-            ?>
 
-            const userHasDatabaseRecord = <?php echo $db_has_record ? 'true' : 'false'; ?>;
-            const serverPredictionValue = "<?php echo trim($db_prediction); ?>";
-            const serverPercentageValue = <?php echo $db_percentage; ?>;
+            function closeLogin() {
+                if (loginModal) loginModal.classList.remove("active");
+                document.body.style.overflow = "auto";
+                const notice = document.querySelector("#loginModal .status-msg");
+                if (notice) notice.remove();
+            }
 
-            if (userHasDatabaseRecord && serverPredictionValue !== '') {
-                // Account matches real database files -> load safely with stored values
-                localStorage.setItem(storageKeyPred, serverPredictionValue);
-                localStorage.setItem(storageKeyPct, serverPercentageValue);
-                showMLResultCard(serverPredictionValue, serverPercentageValue);
-            } else {
-                // Brand new user profile -> clear stray cache data and load questions cleanly
-                localStorage.removeItem(storageKeyPred);
-                localStorage.removeItem(storageKeyPct);
-
-                if (document.getElementById('resultWrapper')) {
-                    document.getElementById('resultWrapper').style.display = 'none';
+            function openSignup() {
+                closeAllModals();
+                if (signupModal) {
+                    signupModal.classList.add("active");
+                    document.body.style.overflow = "hidden";
                 }
+            }
+
+            function closeSignup() {
+                if (signupModal) signupModal.classList.remove("active");
+                document.body.style.overflow = "auto";
+            }
+
+            function openForgot() {
+                closeAllModals();
+                if (forgotModal) {
+                    forgotModal.classList.add("active");
+                    document.body.style.overflow = "hidden";
+                }
+            }
+
+            function closeForgot() {
+                if (forgotModal) forgotModal.classList.remove("active");
+                document.body.style.overflow = "auto";
+            }
+
+            function closeAllModals() {
+                [loginModal, signupModal, forgotModal].forEach(modal => {
+                    if (modal) modal.classList.remove("active");
+                });
+            }
+
+            function toggleProfileDropdown() {
+                if (profileDropdown) {
+                    profileDropdown.classList.toggle("show");
+                }
+            }
+
+            function togglePassword(inputId, icon) {
+                const input = document.getElementById(inputId);
+                if (input) {
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.remove("fa-eye");
+                        icon.classList.add("fa-eye-slash");
+                    } else {
+                        input.type = "password";
+                        icon.classList.remove("fa-eye-slash");
+                        icon.classList.add("fa-eye");
+                    }
+                }
+            }
+
+            window.addEventListener("click", function(e) {
+                if (e.target === loginModal) closeLogin();
+                if (e.target === signupModal) closeSignup();
+                if (e.target === forgotModal) closeForgot();
+
+                if (profileDropdown && !profileDropdown.contains(e.target) && !e.target.closest('.signin-btn')) {
+                    profileDropdown.classList.remove("show");
+                }
+            });
+
+            let currentBlockIdx = 0;
+            const blocks = document.querySelectorAll('.question-block');
+            const steps = document.querySelectorAll('.cat-step');
+            const fill = document.getElementById('fill');
+            const btnBack = document.getElementById('btnBack');
+
+            let userAnswers = {
+                age: null,
+                q1: null,
+                q2: null,
+                q3: null,
+                q4: null,
+                q5: null,
+                q6: null,
+                q7: null,
+                q8: null,
+                q9: null,
+                q10: null,
+                q11: null,
+                q12: null,
+                q14: null,
+                q22: null,
+                q13: null,
+                q21: null,
+                q15: null,
+                q16: null,
+                q17: null,
+                q18: null,
+                q19: null,
+                q20: null,
+                q23: null,
+                q24: null,
+                q25: null,
+                q26: null,
+                q27: null
+            };
+
+            // function toggleProfileDropdown() {
+            //     document.getElementById('profileDropdown').classList.toggle('show');
+            // }
+
+            window.onclick = function(event) {
+                if (!event.target.closest('.profile-container')) {
+                    const drop = document.getElementById('profileDropdown');
+                    if (drop) drop.classList.remove('show');
+                }
+            }
+
+            function initScreening() {
+                blocks.forEach((b, idx) => {
+                    b.classList.toggle('active', idx === 0);
+                });
+                updateProgress();
+            }
+
+            function handleAgeInput(input) {
+                const val = parseInt(input.value);
+                const nextBtn = input.nextElementSibling.nextElementSibling;
+                const errDiv = input.nextElementSibling;
+
+                if (val >= 14 && val <= 60) {
+                    userAnswers.age = val;
+                    nextBtn.classList.add('ready');
+                    errDiv.style.display = 'none';
+                } else {
+                    userAnswers.age = null;
+                    nextBtn.classList.remove('ready');
+                    if (input.value.length > 0) errDiv.style.display = 'block';
+                }
+            }
+
+            function selectOption(element, val) {
+                const block = element.closest('.question-block');
+                const qKey = block.getAttribute('data-q').toLowerCase();
+
+                block.querySelectorAll('.option-card, .list-option').forEach(el => el.classList.remove('selected'));
+                element.classList.add('selected');
+
+                userAnswers[qKey] = val;
+
+                if (currentBlockIdx < blocks.length - 1) {
+                    setTimeout(nextQuestion, 350);
+                } else {
+                    const fBtn = document.getElementById('finalSubmitBtn');
+                    if (fBtn) {
+                        fBtn.style.display = 'block';
+                        fBtn.classList.add('ready');
+                    }
+                }
+            }
+
+            function nextQuestion() {
+                if (currentBlockIdx === 0 && !userAnswers.age) {
+                    document.querySelector('.age-error').style.display = 'block';
+                    return;
+                }
+                if (currentBlockIdx < blocks.length - 1) {
+                    blocks[currentBlockIdx].classList.remove('active');
+                    currentBlockIdx++;
+                    blocks[currentBlockIdx].classList.add('active');
+                    updateProgress();
+                }
+            }
+
+            function prevQuestion() {
+                if (currentBlockIdx > 0) {
+                    blocks[currentBlockIdx].classList.remove('active');
+                    currentBlockIdx--;
+                    blocks[currentBlockIdx].classList.add('active');
+                    updateProgress();
+                }
+            }
+
+            const backBtn = document.getElementById('backBtn');
+            const exitBtnLeft = document.getElementById('exitBtnLeft');
+            const exitBtnRight = document.getElementById('exitBtnRight');
+
+            function updateProgress() {
+                if (currentBlockIdx === 0) {
+                    if (backBtn) backBtn.style.display = 'none';
+                    if (exitBtnLeft) exitBtnLeft.style.display = 'block';
+                    if (exitBtnRight) exitBtnRight.style.display = 'none';
+                } else {
+                    if (backBtn) backBtn.style.display = 'block';
+                    if (exitBtnLeft) exitBtnLeft.style.display = 'none';
+                    if (exitBtnRight) exitBtnRight.style.display = 'block';
+                }
+
+                const currentBlock = blocks[currentBlockIdx];
+                if (!currentBlock) return;
+
+                const catId = parseInt(currentBlock.getAttribute('data-cat'), 10);
+                steps.forEach((st, idx) => {
+                    st.className = 'cat-step';
+                    if (idx < catId) st.classList.add('completed');
+                    if (idx === catId) st.classList.add('active');
+                });
+
+                const totalSteps = blocks.length - 1;
+                const pct = totalSteps > 0 ? (currentBlockIdx / totalSteps) * 100 : 0;
+                if (typeof fill !== 'undefined' && fill) fill.style.width = `${pct}%`;
+            }
+
+            function triggerMLProcessing() {
+                const loader = document.getElementById('loadingScreen');
+                loader.style.display = 'flex';
+
+                setTimeout(() => {
+                    document.getElementById('status-0').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Checking your responses...';
+                    const s1 = document.getElementById('status-1');
+                    if (s1) {
+                        s1.classList.add('active');
+                        s1.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Analyzing your information...';
+                    }
+                }, 1200);
+
+                setTimeout(() => {
+                    document.getElementById('status-1').innerHTML = '<i class="fas fa-check-circle" style="color:var(--risk-none, #388e3c)"></i> Analyzing your information...';
+                    const s2 = document.getElementById('status-2');
+                    if (s2) {
+                        s2.classList.add('active');
+                        s2.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results...';
+                    }
+                }, 2400);
+
+                setTimeout(() => {
+                    document.getElementById('status-2').innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Generating your results... ';
+                    sendDataToBackendML();
+                }, 3500);
+            }
+
+            function sendDataToBackendML() {
+                document.getElementById('loadingScreen').style.display = 'flex';
+
+                const formData = new FormData();
+                formData.append('action', 'submit_screening');
+                for (const key in userAnswers) {
+                    formData.append(key, userAnswers[key]);
+                }
+
+                fetch('screening.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("HTTP error, status code: " + response.status);
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        document.getElementById('loadingScreen').style.display = 'none';
+
+                        if (data.status === 'success') {
+                            const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
+                            localStorage.setItem('saved_prediction_user_' + currentUserId, data.prediction);
+                            localStorage.setItem('saved_percentage_user_' + currentUserId, data.percentage);
+
+                            showMLResultCard(data.prediction, data.percentage);
+                        } else {
+                            throw new Error(data.message || "Unknown backend processing error.");
+                        }
+                    })
+                    .catch(err => {
+                        document.getElementById('loadingScreen').style.display = 'none';
+                        alert("Error running screening model analysis. Check console log details.");
+                        console.error(err);
+                    });
+            }
+
+
+            function showMLResultCard(prediction, percentage) {
+                // Hide the question quiz blocks and stepper indicators cleanly
+                if (document.getElementById('ui-stepper-container')) {
+                    document.getElementById('ui-stepper-container').style.display = 'none';
+                }
+                if (document.getElementById('qWrapper')) {
+                    document.getElementById('qWrapper').style.display = 'none';
+                }
+
+                const wrapper = document.getElementById('resultWrapper');
+                const iconCircle = document.getElementById('resIconCircle');
+                const icon = document.getElementById('resIcon');
+                const title = document.getElementById('resTitle');
+                const desc = document.getElementById('resDesc');
+
+                // Core DOM hooks for the new SVG Circular Progress Ring graphic elements
+                const gaugeFill = document.querySelector('.gauge-fill');
+                const percentageLabel = document.getElementById('riskPercentageLabel');
+
+                if (!wrapper) return;
+                wrapper.style.display = 'block';
+                wrapper.classList.add('show');
+
+                const riskLevel = prediction.trim().toLowerCase();
+                let gaugeColor = "var(--mauve, #7b2cbf)"; // Fallback theme color configuration
+
+                // Determine status, icons, context text descriptions, and colors dynamically
+                if (riskLevel === "high") {
+                    title.innerText = "High Risk Detected";
+                    title.style.color = "var(--risk-high, #d32f2f)";
+                    icon.className = "fas fa-exclamation-circle";
+                    if (iconCircle) {
+                        iconCircle.style.background = "#ffebee";
+                        iconCircle.style.color = "var(--risk-high, #d32f2f)";
+                    }
+                    desc.innerText = "Your screening results suggest that you may be at higher risk. We recommend consulting a healthcare professional for further evaluation.";
+                    gaugeColor = "var(--risk-high, #d32f2f)"; // 🔴 Crimson Alert Red
+                } else if (riskLevel === "moderate") {
+                    title.innerText = "Moderate Risk Detected";
+                    title.style.color = "var(--risk-moderate, #f57c00)";
+                    icon.className = "fas fa-exclamation-triangle";
+                    if (iconCircle) {
+                        iconCircle.style.background = "#fff3e0";
+                        iconCircle.style.color = "var(--risk-moderate, #f57c00)";
+                    }
+                    desc.innerText = "Your screening results indicate moderate risk. Maintaining healthy habits and consulting a healthcare professional can help.";
+                    gaugeColor = "var(--risk-moderate, #f57c00)"; // 🟡 Warnings Orange
+                } else if (riskLevel === "low") {
+                    title.innerText = "Low Risk Detected";
+                    title.style.color = "var(--risk-low, #fbc02d)";
+                    icon.className = "fas fa-info-circle";
+                    if (iconCircle) {
+                        iconCircle.style.background = "#fffde7";
+                        iconCircle.style.color = "var(--risk-low, #fbc02d)";
+                    }
+                    desc.innerText = "Your screening results indicate a low risk based on the information provided. Continue maintaining healthy habits.";
+                    gaugeColor = "var(--risk-low, #fbc02d)"; // 🟡 Amber/Yellow
+                } else {
+                    title.innerText = "No Significant Risk";
+                    title.style.color = "var(--risk-none, #388e3c)";
+                    icon.className = "fas fa-check-circle";
+                    if (iconCircle) {
+                        iconCircle.style.background = "#e8f5e9";
+                        iconCircle.style.color = "var(--risk-none, #388e3c)";
+                    }
+                    desc.innerText = "Your screening results indicate no significant risk. Continue maintaining a healthy lifestyle.";
+                    gaugeColor = "var(--risk-none, #388e3c)"; // 🟢 Healthy Green
+                }
+
+                // =========================================================================
+                // ANIMATION SYSTEM: SVG DASH PATH OFFSET + NUMERIC TICK INCREMENTER
+                // =========================================================================
+                const percentageValue = parseInt(percentage) || 0;
+
+                // 1. Update the color of the SVG ring stroke path and animate the dash line fill
+                if (gaugeFill) {
+                    gaugeFill.style.stroke = gaugeColor;
+
+                    // Circumference of our SVG circle path formula is: 2 * PI * r (2 * 3.14159 * 75 = ~471.2)
+                    const circumference = 471.2;
+                    const offset = circumference - (percentageValue / 100) * circumference;
+
+                    // Triggers structural smooth transition delay
+                    setTimeout(() => {
+                        gaugeFill.style.strokeDashoffset = offset;
+                    }, 150);
+                }
+
+                // 2. Incremental progressive counter animation looping up from 0% to target value
+                if (percentageLabel) {
+                    let startCount = 0;
+                    const totalDuration = 1200; // Animation lifecycle completion run speed window in ms (1.2 seconds)
+
+                    // Determine layout pacing separation slices based on calculated value metrics
+                    const stepTime = percentageValue > 0 ? Math.floor(totalDuration / percentageValue) : 25;
+
+                    // Clear any lingering asynchronous counter loops to prevent race performance bugs
+                    if (window.gaugeCounterInterval) {
+                        clearInterval(window.gaugeCounterInterval);
+                    }
+
+                    if (percentageValue === 0) {
+                        percentageLabel.innerText = "0%";
+                    } else {
+                        window.gaugeCounterInterval = setInterval(() => {
+                            startCount++;
+                            percentageLabel.innerText = startCount + "%";
+
+                            if (startCount >= percentageValue) {
+                                clearInterval(window.gaugeCounterInterval);
+                            }
+                        }, Math.max(stepTime, 10)); // Caps interval processing execution threshold safely
+                    }
+                }
+            }
+
+            function goToTrackPage() {
+                window.location.href = 'track.php';
+            }
+
+            function resetAndRetakeQuiz() {
+                const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
+                localStorage.removeItem('saved_prediction_user_' + currentUserId);
+                localStorage.removeItem('saved_percentage_user_' + currentUserId);
+
+                for (const key in userAnswers) {
+                    userAnswers[key] = null;
+                }
+
+                document.getElementById('resultWrapper').style.display = 'none';
+                document.getElementById('resultWrapper').classList.remove('show');
+
+                if (document.getElementById('ui-stepper-container')) {
+                    document.getElementById('ui-stepper-container').style.display = 'block';
+                }
+                if (document.getElementById('qWrapper')) {
+                    document.getElementById('qWrapper').style.display = 'block';
+                }
+
+                currentBlockIdx = 0;
                 initScreening();
             }
-        };    </script></body>
+
+            // Clean database check alignment block
+            window.onload = function() {
+                const currentUserId = "<?php echo $_SESSION['user']['id']; ?>";
+                const storageKeyPred = 'saved_prediction_user_' + currentUserId;
+                const storageKeyPct = 'saved_percentage_user_' + currentUserId;
+
+                <?php
+                // UPDATED: Now selecting 'risk_percentage' directly from your database
+                $check_query = "SELECT prediction_result, risk_percentage FROM screening WHERE user_id = ? ORDER BY created_at DESC LIMIT 1";
+                $check_stmt = $conn->prepare($check_query);
+                $db_has_record = false;
+                $db_prediction = '';
+                $db_percentage = 0;
+
+                if ($check_stmt) {
+                    // FIXED: Using the clean explicit session ID variable directly here
+                    $check_stmt->bind_param("i", $_SESSION['user']['id']);
+                    $check_stmt->execute();
+                    $check_result = $check_stmt->get_result();
+                    if ($row = $check_result->fetch_assoc()) {
+                        $db_has_record = true;
+                        $db_prediction = $row['prediction_result'];
+                        // UPDATED: Reads the exact stored percentage directly from your database row column
+                        $db_percentage = isset($row['risk_percentage']) ? intval($row['risk_percentage']) : 0;
+                    }
+                    $check_stmt->close();
+                }
+                ?>
+
+                const userHasDatabaseRecord = <?php echo $db_has_record ? 'true' : 'false'; ?>;
+                const serverPredictionValue = "<?php echo trim($db_prediction); ?>";
+                const serverPercentageValue = <?php echo $db_percentage; ?>;
+
+                if (userHasDatabaseRecord && serverPredictionValue !== '') {
+                    // Account matches real database files -> load safely with stored values
+                    localStorage.setItem(storageKeyPred, serverPredictionValue);
+                    localStorage.setItem(storageKeyPct, serverPercentageValue);
+                    showMLResultCard(serverPredictionValue, serverPercentageValue);
+                } else {
+                    // Brand new user profile -> clear stray cache data and load questions cleanly
+                    localStorage.removeItem(storageKeyPred);
+                    localStorage.removeItem(storageKeyPct);
+
+                    if (document.getElementById('resultWrapper')) {
+                        document.getElementById('resultWrapper').style.display = 'none';
+                    }
+                    initScreening();
+                }
+            };
+        </script>
+</body>
 
 </html>

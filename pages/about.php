@@ -1371,9 +1371,6 @@ if (isset($_GET['logout'])) {
         }
 
         /* ==========================================================================
-           4. DID YOU KNOW SECTION (Premium Split Matrix Layout)
-           ========================================================================== */
-        /* ==========================================================================
    4. DID YOU KNOW SECTION (Premium Dual Column Stack Layout)
    ========================================================================== */
         #did-you-know {
@@ -1455,201 +1452,6 @@ if (isset($_GET['logout'])) {
             }
         }
 
-        /* #did-you-know {
-            background-color: var(--white);
-            padding: 90px 0;
-            position: relative;
-        }
-        .dyk-showcase-layout {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 70px;
-            align-items: center;
-        }
-
-        /* Left Side Text Content Pipeline 
-        .dyk-cases-text {
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-        .dyk-cases-text .section-left-title h2 {
-            font-size: 2.6rem;
-            color: var(--plum);
-            letter-spacing: -0.5px;
-            margin-top: 12px;
-            font-weight: 700;
-        }
-        .dyk-case-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .dyk-text-item {
-            padding-left: 20px;
-            border-left: 2px solid var(--border);
-            transition: var(--transition);
-        }
-        /* Highlight state mimicking the active selection indicator in the template 
-        .dyk-text-item.active-case {
-            border-left-color: var(--plum);
-        }
-        .dyk-text-item h3 {
-            font-size: 1.3rem;
-            color: var(--plum);
-            margin-bottom: 8px;
-            font-weight: 600;
-            transition: var(--transition);
-        }
-        .dyk-text-item.active-case h3 {
-            color: var(--plum);
-        }
-        .dyk-text-item p {
-            font-size: 0.98rem;
-            line-height: 1.6;
-            color: var(--text);
-            margin: 0;
-        }
-
-        /* Right Side Interactive Matrix Architecture 
-        .dyk-matrix-display {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        .matrix-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 440px;
-        }
-        
-        /* Unified Matrix Tile Structure 
-        .matrix-tile {
-            background: var(--light-purple);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            padding: 24px;
-            transition: var(--transition);
-            position: relative;
-        }
-        
-        /* Premium Highlight Selection State matching your video overlay 
-        .matrix-tile.tile-active {
-            background: linear-gradient(135deg, var(--plum) 0%, var(--thistle) 100%);
-            border: none;
-            box-shadow: var(--shadow-md);
-        }
-        
-        /* Subdued styling for non-focused matrix slots 
-        .matrix-tile.tile-disabled {
-            opacity: 0.45;
-            background: transparent;
-            border-style: dashed;
-        }
-
-        /* Tile Interior Micro-Typography & Icon Graphics 
-        .tile-icon-wrapper {
-            font-size: 1.8rem;
-            color: var(--plum);
-            transition: var(--transition);
-        }
-        .matrix-tile.tile-active .tile-icon-wrapper {
-            color: var(--white);
-            transform: scale(1.05);
-        }
-        .tile-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--plum);
-            letter-spacing: -0.2px;
-            text-align: center;
-        }
-        .matrix-tile.tile-active .tile-label {
-            color: var(--white);
-        }
-
-        /* Interactive Hover Refinements 
-        .matrix-tile:not(.tile-disabled):hover {
-            transform: translateY(-4px);
-            border-color: var(--lilac);
-            box-shadow: var(--shadow-sm);
-        }
-
-        /* Responsive Flow Adaptation Elements 
-        @media (max-width: 992px) {
-            .dyk-showcase-layout {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-            .matrix-grid {
-                max-width: 100%;
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .matrix-tile {
-                aspect-ratio: auto;
-                height: 110px;
-                padding: 10px;
-            }
-            .tile-label {
-                font-size: 0.8rem;
-            }
-        }
-        @media (max-width: 576px) {
-            .matrix-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        } */
-
-        /* ==========================================================================
-           8. WHY TRACKING MATTERS SECTION (Aligned Exactly to CycleScan App Features)
-           ========================================================================== */
-        /* #tracking-matters {
-            background-color: var(--light-purple);
-        }
-        .dashboard-showcase-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        .saas-dashboard-canvas {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
-            padding: 35px;
-            box-shadow: var(--shadow-lg);
-        }
-        .app-log-widget {
-            background: var(--light-purple);
-            border-radius: var(--radius-md);
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px dashed var(--border);
-        }
-        .app-flex-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .app-value-badge {
-            padding: 6px 14px;
-            background: var(--white);
-            border-radius: 30px;
-            font-weight: 700;
-            color: var(--thistle);
-            font-size: 0.95rem;
-            box-shadow: var(--shadow-sm);
-        } */
         /* ==========================================================================
            8. Why tracking matters?(Section Layout & Compact Structural Frame
            ========================================================================== */
@@ -3053,19 +2855,6 @@ if (isset($_GET['logout'])) {
 
 <body>
 
-    <!-- <nav class="nav">
-        <div class="logo">
-            <a href="home.html">
-                <img src="../assets/images/CycleScan.png" alt="CycleScan Logo">
-            </a>
-        </div>
-        <ul class="nav-links">
-            <li><a href="#test-card">Screening</a></li>
-            <li><a href="#chat-card">AI Assistant</a></li>
-            <li><a href="#tracker-card">Cycle Tracker</a></li>
-            <li><a href="#about-card">About PCOD</a></li>
-        </ul>
-    </nav> -->
 <nav class="nav" id="myTopnav">
         <button class="nav-toggle-icon" onclick="toggleMenu()">
             <i class="fas fa-bars" id="hamburgerIcon"></i>
@@ -3564,75 +3353,6 @@ if (isset($_GET['logout'])) {
         </div>
     </section>
 
-    <!-- <section id="health-impact">
-        <div class="container diagonal-grid">
-            <div>
-                <div class="premium-badge">Systemic Risks</div>
-                <h2>Long-Term Health System Impacts</h2>
-                <p>Unmanaged PCOD scales beyond traditional menstrual boundaries. It modifies metabolic safety boundaries and can elevate baseline risks for long-term health markers if left unaddressed.</p>
-            </div>
-            <div class="dashboard-mockup-wrapper">
-                <div class="analytics-mini-card">
-                    <h4>Metabolic Rate</h4>
-                    <div class="analytics-value">64%</div>
-                </div>
-                <div class="analytics-mini-card amc-2">
-                    <h4>Insulin Index</h4>
-                    <div class="analytics-value">HI-Risk</div>
-                </div>
-                <div class="analytics-mini-card amc-3">
-                    <h4>Ovulation Frequency</h4>
-                    <div class="analytics-value">4 / Yr</div>
-                </div>
-                <div class="analytics-mini-card amc-4">
-                    <h4>Emotional Score</h4>
-                    <div class="analytics-value">Moderate</div>
-                </div>
-            </div>
-        </div>
-    </section> -->
-
-    <!-- <section id="lifestyle">
-        <div class="container">
-            <div class="section-center-title">
-                <div class="premium-badge">Care Tactics</div>
-                <h2>Lifestyle Protocols</h2>
-                <p>Optimize your recovery vectors through structured habits designed to restore natural hormone cycles.</p>
-            </div>
-            <div class="lifestyle-matrix-6">
-                <div class="matrix-card-item mci-light">
-                    <div class="mci-icon"><i class="fas fa-plate-wheat"></i></div>
-                    <h3>Balanced Diet</h3>
-                    <p>Integrate nutrient-dense whole foods and prioritize low glycemic items to stabilize blood sugar tracking levels.</p>
-                </div>
-                <div class="matrix-card-item mci-dark">
-                    <div class="mci-icon"><i class="fas fa-person-running"></i></div>
-                    <h3>Regular Exercise</h3>
-                    <p>Engage in active cardiovascular intervals or modern strength protocols to combat muscle insulin resistance blocks.</p>
-                </div>
-                <div class="matrix-card-item mci-light">
-                    <div class="mci-icon"><i class="fas fa-moon"></i></div>
-                    <h3>Quality Sleep</h3>
-                    <p>Enforce 7-8 hours of uninterrupted deep recovery sleep patterns to correctly reset downstream cortisol parameters.</p>
-                </div>
-                <div class="matrix-card-item mci-dark">
-                    <div class="mci-icon"><i class="fas fa-faucet-drip"></i></div>
-                    <h3>Stay Hydrated</h3>
-                    <p>Maintain consistent water intake levels to enhance filtration speeds and cellular detoxification tracks.</p>
-                </div>
-                <div class="matrix-card-item mci-light">
-                    <div class="mci-icon"><i class="fas fa-spa"></i></div>
-                    <h3>Stress Management</h3>
-                    <p>Incorporate clinical meditation or breathing techniques to downregulate sympathetic neural over-activation spikes.</p>
-                </div>
-                <div class="matrix-card-item mci-dark">
-                    <div class="mci-icon"><i class="fas fa-calendar-check"></i></div>
-                    <h3>Track Your Cycle</h3>
-                    <p>Log period parameters to monitor progress indicators and easily flag phase anomalies over extended horizons.</p>
-                </div>
-            </div>
-        </div>
-    </section> -->
     <section id="lifestyle">
         <div class="container">
             <div class="section-center-title">
@@ -3695,99 +3415,6 @@ if (isset($_GET['logout'])) {
         </div>
     </section>
 
-    <!-- <section id="did-you-know">
-        <div class="container dyk-showcase-layout">
-            
-            <div class="dyk-cases-text">
-                <div class="section-left-title">
-                    <div class="premium-badge">Global Data</div>
-                    <h2>Did You Know?</h2>
-                </div>
-
-                <div class="dyk-case-stack">
-                    <div class="dyk-text-item active-case">
-                        <h3>High Global Frequency</h3>
-                        <p>PCOD parameters currently affect 1 in every 10 women globally, tracking it as a premier public health concern that demands systemic lifecycle screening solutions.</p>
-                    </div>
-                    
-                    <div class="dyk-text-item">
-                        <h3>The Cyst Misnomer</h3>
-                        <p>An official diagnosis does not require structural cysts; it focuses heavily on identifying tracking deviations in hormonal balance grids and systemic cycles.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dyk-matrix-display">
-                <div class="matrix-grid">
-                    
-                    <div class="matrix-tile tile-active">
-                        <div class="tile-icon-wrapper">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <span class="tile-label">1 in 10</span>
-                    </div>
-
-                    <div class="matrix-tile">
-                        <div class="tile-icon-wrapper">
-                            <i class="fas fa-notes-medical"></i>
-                        </div>
-                        <span class="tile-label">Hormonal Axis</span>
-                    </div>
-
-                    <div class="matrix-tile tile-disabled">
-                        <div class="tile-icon-wrapper">
-                            <i class="fas fa-chart-pie"></i>
-                        </div>
-                    </div>
-
-                    <div class="matrix-tile tile-disabled">
-                        <div class="tile-icon-wrapper">
-                            <i class="fas fa-project-diagram"></i>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-        </div>
-    </section> -->
-    <!-- <section id="did-you-know">
-        <div class="container">
-
-            <div class="section-left-title">
-                <div class="premium-badge">Global Data</div>
-                <h2>Did You Know?</h2>
-            </div>
-
-            <div class="dyk-split-grid">
-
-                <div class="dyk-cases-column">
-                    <div class="dyk-text-item active-case">
-                        <h3>Lifestyle & Metabolic Disorder</h3>
-                        <p>Polycystic Ovary Disease is strongly connected to insulin resistance, stress, and unhealthy lifestyle habits, not just reproductive health.</p>
-                    </div>
-
-                    <div class="dyk-text-item">
-                        <h3>PCOD Affects Every Body Type</h3>
-                        <p>PCOD is not only linked to weight gain. Even slim women can experience acne, irregular periods, and hormonal imbalance.</p>
-                    </div>
-                </div>
-
-                <div class="dyk-cases-column">
-                    <div class="dyk-text-item">
-                        <h3>Increases Future Health Risks</h3>
-                        <p>If left unmanaged, PCOD can raise the chances of diabetes, high cholesterol, and heart-related problems later in life.</p>
-                    </div>
-
-                    <div class="dyk-text-item">
-                        <h3>Can Be Managed Naturally</h3>
-                        <p>Regular exercise, balanced meals, proper sleep, and stress management can greatly improve and control PCOD symptoms.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section> -->
     <section id="did-you-know">
         <div class="container">
 
@@ -3834,35 +3461,6 @@ if (isset($_GET['logout'])) {
         </div>
     </section>
 
-    <!-- <section id="tracking-matters"> -->
-    <!-- <div class="container dashboard-showcase-grid">
-            <div class="saas-dashboard-canvas">
-                <div class="app-log-widget">
-                    <div class="app-flex-row">
-                        <span style="font-weight: 600; color: var(--plum);"><i class="fas fa-pen-to-square"></i> Last Logged Date</span>
-                        <span class="app-value-badge">May 12, 2026</span>
-                    </div>
-                </div>
-                <div class="app-log-widget">
-                    <div class="app-flex-row">
-                        <span style="font-weight: 600; color: var(--plum);"><i class="fas fa-arrows-left-right"></i> Logged Cycle Length</span>
-                        <span class="app-value-badge">32 Days</span>
-                    </div>
-                </div>
-                <div class="app-log-widget" style="border-color: var(--thistle); background: rgba(243, 231, 255, 0.3);">
-                    <div class="app-flex-row">
-                        <span style="font-weight: 700; color: var(--amethyst);"><i class="fas fa-crystal-ball"></i> Predicted Next Date</span>
-                        <span class="app-value-badge" style="background: var(--thistle); color: var(--white);">June 14, 2026</span>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="premium-badge">App Integration</div>
-                <h2>Simple Log Analytics</h2>
-                <p>Your tracking logs are built specifically to capture phase start dates, estimate individual cycle lengths, and accurately compute future cycle windows, removing calculation guesswork entirely from your calendar view.</p>
-            </div>
-        </div>
-    </section> -->
     <section class="tracking-section">
         <div class="tracking-bg-blob t-blob-1"></div>
         <div class="tracking-bg-blob t-blob-2"></div>
@@ -3908,53 +3506,6 @@ if (isset($_GET['logout'])) {
 
                 <div class="cards-outer-wrapper-stack">
 
-                    <!-- <div class="benefit-orbital-card card-pos-1 c-subtle" data-card-index="1">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-calendar-alt"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>Predict Periods</h3>
-                            <p>Know approximately when your next cycle may begin.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-orbital-card card-pos-2 c-lilac" data-card-index="2">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-chart-line"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>Track Length</h3>
-                            <p>Understand your average cycle pattern over time.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-orbital-card card-pos-3 c-lavender" data-card-index="3">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-exclamation-circle"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>Spot Irregularities</h3>
-                            <p>Identify unusual changes that may require attention.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-orbital-card card-pos-4 c-wisteria" data-card-index="4">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-brain"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>Understand Symptoms</h3>
-                            <p>Track mood, cramps, energy levels, and health changes.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-orbital-card card-pos-5 c-thistle" data-card-index="5">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-clipboard-check"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>Prepare Ahead</h3>
-                            <p>Plan important events and daily activities with confidence.</p>
-                        </div>
-                    </div>
-
-                    <div class="benefit-orbital-card card-pos-6 c-amethyst" data-card-index="6">
-                        <div class="orbital-icon-wrapper"><i class="fas fa-notes-medical"></i></div>
-                        <div class="orbital-card-text">
-                            <h3>PCOD Awareness</h3>
-                            <p>Gain better insight into patterns related to PCOD symptoms.</p>
-                        </div>
-                    </div> -->
                     <div class="benefit-orbital-card card-pos-1 c-subtle" data-card-index="1">
                         <div class="orbital-icon-wrapper"><i class="fas fa-calendar-alt"></i></div>
                         <div class="orbital-card-text">
@@ -4014,79 +3565,6 @@ if (isset($_GET['logout'])) {
         </div>
     </section>
 
-    <!-- <section id="faq">
-        <div class="container">
-            <div class="section-center-title">
-                <div class="premium-badge">Support</div>
-                <h2>Frequently Raised Concerns</h2>
-            </div>
-            <div class="faq-wrapper">
-                <div class="faq-item active">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        Can PCOD completely disappear?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>PCOD is a structural metabolic tendency rather than a temporary infection. While it cannot be cured instantly, optimizing your lifestyle tracking parameters can help achieve symptom-free management.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        How does it differ from PCOS?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>PCOD is generally considered a lighter metabolic variant triggered by temporary hormonal drops, whereas PCOS is a severe endocrine systemic disorder linked to more complex metabolic impacts.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        Does tracking fix irregular periods?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>Tracking itself provides data records. By knowing your cycle length changes, you can share accurate logs with clinical experts to find exact medical solutions.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        Can dietary shifts improve my symptoms?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>Yes, adopting nutritional habits built to balance insulin spikes plays a massive role in regulating ovarian cycles and down-regulating excess androgen markers.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        Is exercise mandatory for PCOD recovery?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>Movement increases cellular insulin sensitivity patterns, making it one of the core strategic pathways to naturally manage weight indices and cycle consistency.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        What role does stress play?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>High cortisol spikes disrupt downstream progesterone matching networks, which directly impacts ovulation timings and prolongs phase gaps.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <button class="faq-trigger" onclick="toggleFaq(this)">
-                        When should I consult a doctor?
-                        <div class="faq-icon-indicator"><i class="fas fa-chevron-down"></i></div>
-                    </button>
-                    <div class="faq-content">
-                        <p>If logs indicate gaps exceeding 45-60 days consistently, or show rapid visual symptom updates, consulting a specialized practitioner is highly recommended.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
     <section id="faq">
         <div class="container">
             <div class="section-center-title">
@@ -4189,71 +3667,6 @@ if (isset($_GET['logout'])) {
         </div>
     </section>
 
-    <!-- <footer class="cyclescan-footer">
-        <div class="footer-container">
-            <div class="footer-top-grid">
-                <div class="footer-brand-col">
-                    <div class="footer-logo">
-                        <div class="footer-logo-icon">
-                            <i class="fas fa-heart"></i>
-                        </div>
-                        CycleScan
-                    </div>
-                    <p class="footer-brand-desc">Empowering women to take control of their PCOD wellness journey with confidence and care.</p>
-                    <div class="footer-social-links">
-                        <a href="#" class="social-icon" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-icon" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-
-                <div class="footer-links-col">
-                    <h4>Features</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="#">Health Screening</a></li>
-                        <li><a href="#">Cycle Tracker</a></li>
-                        <li><a href="#">AI Assistant</a></li>
-                        <li><a href="#">Wellness Insights</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-col">
-                    <h4>Resources</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="#">About PCOD</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Research</a></li>
-                        <li><a href="#">FAQs</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-links-col">
-                    <h4>Company</h4>
-                    <ul class="footer-links-list">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <hr class="footer-divider">
-
-            <div class="footer-bottom-bar">
-                <a href="mailto:support@cyclescan.com" class="footer-email">
-                    <i class="far fa-envelope"></i> support@cyclescan.com
-                </a>
-                <div class="footer-copyright">
-                    &copy; 2026 CycleScan. All rights reserved.
-                </div>
-            </div>
-
-            <p class="footer-disclaimer">
-                Disclaimer: CycleScan is a wellness tool designed to support PCOD management. It is not a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers regarding your health.
-            </p>
-        </div>
-    </footer> -->
     <footer class="cyclescan-footer-section">
         <div class="footer-glow-blob blob-left"></div>
         <div class="footer-glow-blob blob-right"></div>
@@ -4307,10 +3720,10 @@ if (isset($_GET['logout'])) {
             // Toggle between layout classes using the responsive trigger flag
             if (navbar.className === "nav") {
                 navbar.className += " responsive";
-                icon.className = "fas fa-times"; // Changes icon to an 'X' close button
+                icon.className = "fas fa-times"; 
             } else {
                 navbar.className = "nav";
-                icon.className = "fas fa-bars";  // Resets icon back to standard bars
+                icon.className = "fas fa-bars";  
             }
         }
 
@@ -4447,7 +3860,6 @@ if (isset($_GET['logout'])) {
         const loginModal = document.getElementById("loginModal");
         const signupModal = document.getElementById("signupModal");
         const forgotModal = document.getElementById("forgotModal");
-        // const profileDropdown = document.getElementById("profileDropdown");
 
         function openLogin() {
             closeAllModals();
